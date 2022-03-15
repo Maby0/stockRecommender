@@ -6,6 +6,7 @@ import fetchArticles from './util/fetchArticles';
 import { articleParser, htmlTagStrip } from './util/articleParser'
 import fs from 'fs';
 import doubleQuoteDoubler from './util/csvFormatter';
+import fetchSNP500 from './util/fetchSNP500';
 
 const options: AxiosRequestConfig = {
     method: 'GET',
@@ -21,12 +22,12 @@ async function saveArticleText() {
     const urlArr = articleUrlGrab(await fetchArticles(options));
     const articles = await articleParser(urlArr);
 
-    if (!fs.existsSync('../data/articleText.csv')) fs.appendFileSync('../data/articleText.csv', "Article\n", 'utf-8')
+    if (!fs.existsSync('../data/articleText.csv')) fs.appendFileSync('../data/articleText.csv', "Article\n", 'utf-8');
 
     articles.forEach(article => {
         if (article) {
-            const formattedArticleText = doubleQuoteDoubler(htmlTagStrip(article.content)).substring(1)
-            let csvInsert = '"' + formattedArticleText + '"' + "\n"
+            const formattedArticleText = doubleQuoteDoubler(htmlTagStrip(article.content)).substring(1);
+            let csvInsert = '"' + formattedArticleText + '"' + "\n";
             fs.appendFile('../data/articleText.csv', csvInsert, 'utf-8', function(err) {
                 if (err) {
                     console.log("Error occurred");
@@ -38,4 +39,5 @@ async function saveArticleText() {
     })
 }
 
-saveArticleText();
+// saveArticleText();
+fetchSNP500();
