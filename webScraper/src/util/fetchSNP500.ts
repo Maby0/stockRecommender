@@ -1,7 +1,7 @@
 import { Dataset } from 'data.js';
 import fs from 'fs';
 
-export default async function fetchSNP500() {
+export default async function fetchSNP500(): Promise<void> {
     const path = 'https://datahub.io/core/s-and-p-500-companies/datapackage.json';
     const dataset = await Dataset.load(path);
 

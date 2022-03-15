@@ -18,7 +18,7 @@ const options: AxiosRequestConfig = {
     }
 };
 
-async function saveArticleText() {
+async function saveArticleText(): Promise<void> {
     const urlArr = articleUrlGrab(await fetchArticles(options));
     const articles = await articleParser(urlArr);
 
