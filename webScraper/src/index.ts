@@ -7,6 +7,7 @@ import { articleParser, htmlTagStrip } from './util/articleParser'
 import fs from 'fs';
 import doubleQuoteDoubler from './util/csvFormatter';
 import fetchSNP500 from './util/fetchSNP500';
+import { companyDataObjArray } from './util/loadSNPData';
 
 const options: AxiosRequestConfig = {
     method: 'GET',
@@ -40,4 +41,5 @@ async function saveArticleText(): Promise<void> {
 }
 
 // saveArticleText();
-fetchSNP500();
+// fetchSNP500(); 
+console.log(companyDataObjArray[123].name);
