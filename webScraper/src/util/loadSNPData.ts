@@ -1,5 +1,5 @@
 import fs from 'fs';
-import CompanyDataObj from '../model/CompanyDataObj';
+import CompanyDataObj from '../model/CompanyDataModel';
 
 
 const companyData = fs
