@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import AssetModel from '../model/assetModel';
+import AssetModel from '../../../model/assetModel';
 
 export default async function fetchArticles(options: AxiosRequestConfig): Promise<AssetModel[]> {
     return axios.request(options).then(function (response) {

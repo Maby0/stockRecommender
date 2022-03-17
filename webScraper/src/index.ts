@@ -1,14 +1,9 @@
 require('dotenv').config();
 
 import { AxiosRequestConfig } from 'axios';
-import articleUrlGrab from './util/articleUrlGrab';
-import fetchArticles from './util/fetchArticles';
-import { articleParser, htmlTagStrip } from './util/articleParser'
-import fs from 'fs';
-import doubleQuoteDoubler from './util/csvFormatter';
-import fetchSNP500 from './util/fetchSNP500';
-import { companyDataObjArray } from './util/loadSNPData';
-import scanArticlesForSNP500 from './util/findCompanyInfoInArticle';
+import articleProcessTrigger from './util/articles/articleProcessTrigger';
+import loadSNPData from './util/SNP500/SNP500Fetch&Save/loadSNPData';
+import SNP500ProcessTrigger from './util/SNP500/SNP500ProcessTrigger';
 
 const options: AxiosRequestConfig = {
     method: 'GET',
@@ -20,28 +15,11 @@ const options: AxiosRequestConfig = {
     }
 };
 
-async function saveArticleText(): Promise<void> {
-    const urlArr = articleUrlGrab(await fetchArticles(options));
-    const articles = await articleParser(urlArr);
-
-    if (!fs.existsSync('../data/articleText.csv')) fs.appendFileSync('../data/articleText.csv', "Article\n", 'utf-8');
-
-    articles.forEach(article => {
-        if (article) {
-            const formattedArticleText = doubleQuoteDoubler(htmlTagStrip(article.content)).substring(1);
-            let csvInsert = '"' + formattedArticleText + '"' + "\n";
-            fs.appendFile('../data/articleText.csv', csvInsert, 'utf-8', function(err) {
-                if (err) {
-                    console.log("Error occurred");
-                } else {
-                    console.log("Articles saved!");
-                }
-            })
-        }
-    })
+async function mainProcess(options: AxiosRequestConfig): Promise<void> {
+    await articleProcessTrigger(options);
+    await SNP500ProcessTrigger();
+    // console.log(await loadSNPData());
+    // console.log(scanArticlesForSNP500());
 }
 
-// saveArticleText();
-// fetchSNP500(); 
-// console.log(companyDataObjArray);
-console.log(scanArticlesForSNP500().length);
+mainProcess(options);
