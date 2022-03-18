@@ -14,11 +14,11 @@ export default function articleStorer(articlesArray: ArticleModel[]) {
 }
 
 
-function _generateCSVHeaders() {
+function _generateCSVHeaders(): void {
     if (!fs.existsSync('../data/articleText.csv')) fs.appendFileSync('../data/articleText.csv', "id, datePublished, url, article\n", 'utf-8');
 }
 
-function _insertCSVLine(data) {
+function _insertCSVLine(data: string): void {
     fs.appendFile('../data/articleText.csv', data, 'utf-8', function(err) {
         if (err) {
             console.log("Error occurred");
@@ -28,6 +28,6 @@ function _insertCSVLine(data) {
     })
 }
 
-function _formatArticleText(text) {
+function _formatArticleText(text: string): string {
     return quoteFormatter(htmlTagStrip(text)).substring(1);
 }
