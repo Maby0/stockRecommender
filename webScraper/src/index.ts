@@ -17,7 +17,7 @@ const config: AxiosRequestConfig = {
 
 async function setupProcess(config: AxiosRequestConfig): Promise<void> {
     await articleProcessTrigger(config);
-    await SNP500ProcessTrigger();
+    // await SNP500ProcessTrigger();
 }
 
 function mainProcess() {

@@ -7,6 +7,5 @@ import articleParser from "./articleFormatting/articleParser";
 export default async function articleProcessTrigger(options): Promise<void> {
     const articleObjectArray = articleUrlGrab(await fetchArticles(options));
     const completeArticlesArray = await articleParser(articleObjectArray);
-    // console.log(completeArticlesArray);
     articleStorer(completeArticlesArray)
 }

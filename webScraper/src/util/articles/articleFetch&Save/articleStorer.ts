@@ -3,18 +3,31 @@ import ArticleModel from '../../../model/articleModel';
 import {quoteFormatter, htmlTagStrip} from '../articleFormatting/articleTextFormatter';
 
 export default function articleStorer(articlesArray: ArticleModel[]) {
-    if (!fs.existsSync('../data/articleText.csv')) fs.appendFileSync('../data/articleText.csv', "id, datePublished, url, article\n", 'utf-8');
+    _generateCSVHeaders();
     articlesArray.forEach(article => {
         if (article.articleText) {
-            const formattedArticleText = quoteFormatter(htmlTagStrip(article.articleText)).substring(1);
-            let csvInsert = `${article.id.toString()}, ${article.datePublished}, ${article.url}, ` + '"' + formattedArticleText + '"' + "\n";
-            fs.appendFile('../data/articleText.csv', csvInsert, 'utf-8', function(err) {
-                if (err) {
-                    console.log("Error occurred");
-                } else {
-                    console.log("Articles saved!");
-                }
-            })
+            const formattedArticleText = _formatArticleText(article.articleText);
+            const csvInsert = `${article.id.toString()}, ${article.datePublished}, ${article.url}, ` + formattedArticleText + "\n";
+            _insertCSVLine(csvInsert);
         }
     })
+}
+
+
+function _generateCSVHeaders() {
+    if (!fs.existsSync('../data/articleText.csv')) fs.appendFileSync('../data/articleText.csv', "id, datePublished, url, article\n", 'utf-8');
+}
+
+function _insertCSVLine(data) {
+    fs.appendFile('../data/articleText.csv', data, 'utf-8', function(err) {
+        if (err) {
+            console.log("Error occurred");
+        } else {
+            console.log("Article saved!");
+        }
+    })
+}
+
+function _formatArticleText(text) {
+    return quoteFormatter(htmlTagStrip(text)).substring(1);
 }
