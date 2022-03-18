@@ -25,5 +25,5 @@ function mainProcess() {
     console.log(scanArticlesForSNP500());
 }
 
-// setupProcess(config);
-mainProcess();
+setupProcess(config);
+// mainProcess();

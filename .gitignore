@@ -1,5 +1,3 @@
 node_modules
 .env
-data/articleText.csv
-data/data.csv
-data/randomTest.csv
+data
