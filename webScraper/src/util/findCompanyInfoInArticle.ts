@@ -13,7 +13,6 @@ export default function scanArticlesForSNP500(): Referencer[] {
     SNP500CompaniesArray.forEach(company => {
         const referencedArticles = []
         allStoredArticles.forEach(article => {
-            console.log(article.articleText);
             if (article.articleText.includes(company.name)) referencedArticles.push(article)
         })
         if (referencedArticles.length) referencerArray.push(_referencerGenerator(company, referencedArticles))

@@ -21,9 +21,9 @@ async function setupProcess(config: AxiosRequestConfig): Promise<void> {
 }
 
 function mainProcess() {
-    // scanArticlesForSNP500();
-    console.log(scanArticlesForSNP500());
+    scanArticlesForSNP500();
+    // console.log(scanArticlesForSNP500());
 }
 
-setupProcess(config);
-// mainProcess();
+// setupProcess(config);
+mainProcess();
