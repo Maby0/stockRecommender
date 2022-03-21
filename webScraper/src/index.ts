@@ -1,9 +1,10 @@
 require('dotenv').config();
 
+import express from 'express';
 import { AxiosRequestConfig } from 'axios';
 import articleProcessTrigger from './util/articles/articleProcessTrigger';
+import sentimentScoreGenerator from './util/pythonCodeTrigger';
 import SNP500ProcessTrigger from './util/SNP500/SNP500ProcessTrigger';
-import scanArticlesForSNP500 from './util/findCompanyInfoInArticle';
 
 const config: AxiosRequestConfig = {
     method: 'GET',
@@ -15,15 +16,21 @@ const config: AxiosRequestConfig = {
     }
 };
 
+const app = express()
+const port = 3000
+
 async function setupProcess(config: AxiosRequestConfig): Promise<void> {
     await articleProcessTrigger(config);
     await SNP500ProcessTrigger();
 }
 
 function mainProcess() {
-    scanArticlesForSNP500();
-    // console.log(scanArticlesForSNP500());
+    // scanArticlesForSNP500();
+    sentimentScoreGenerator();
 }
 
-// setupProcess(config);
-mainProcess();
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}!`)
+    // setupProcess(config);
+    mainProcess();
+})
