@@ -5,7 +5,7 @@ import { AxiosRequestConfig } from 'axios';
 import articleProcessTrigger from './util/articles/articleProcessTrigger';
 import sentimentScoreGenerator from './util/pythonCodeTrigger';
 import SNP500ProcessTrigger from './util/SNP500/SNP500ProcessTrigger';
-import scanArticlesForSNP500 from './util/findCompanyInfoInArticle';
+import articleScanTrigger from './util/articleScanner/articleScanTrigger';
 
 const config: AxiosRequestConfig = {
     method: 'GET',
@@ -26,12 +26,12 @@ async function setupProcess(config: AxiosRequestConfig): Promise<void> {
 }
 
 function mainProcess() {
-    scanArticlesForSNP500();
+    articleScanTrigger();
     sentimentScoreGenerator();
 }
 
 app.listen(port, async () => {
     console.log(`Example app listening on port ${port}!`)
-    // await setupProcess(config);
-    mainProcess();
+    await setupProcess(config);
+    // mainProcess();
 })
