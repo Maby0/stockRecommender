@@ -3,7 +3,6 @@ import ArticleModel from '../../../model/articleModel';
 
 export default function loadArticles(): ArticleModel[] {
     const rows = _readJSON()
-    console.log(rows);
     return rows;
 }
 
