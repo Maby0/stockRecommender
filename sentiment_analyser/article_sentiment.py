@@ -1,11 +1,8 @@
-import pandas as pd
 import json
 from sentiment_functions import getPolarity
 from sentiment_functions import getSubjectivity
 
-# replace pandas library with json
 try:
-    # articles = pd.read_json('../data/articles.json')
     with open("../data/articles.json","r") as read_file:
         articles = json.load(read_file)
     
