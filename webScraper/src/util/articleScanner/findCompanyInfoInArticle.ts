@@ -17,7 +17,7 @@ export default function scanArticlesForSNP500(): Referencer[] {
         })
         if (referencedArticles.length) referencerArray.push(_referencerGenerator(company, referencedArticles))
     })
-    saveToJson(referencerArray, "referencers");
+    // saveToJson(referencerArray, "referencers");
     return referencerArray;
 }
 

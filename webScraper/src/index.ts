@@ -27,7 +27,7 @@ async function setupProcess(config: AxiosRequestConfig): Promise<void> {
 
 function mainProcess() {
     articleScanTrigger();
-    sentimentScoreGenerator();
+    // sentimentScoreGenerator();
 }
 
 app.listen(port, async () => {

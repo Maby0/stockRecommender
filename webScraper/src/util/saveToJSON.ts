@@ -7,7 +7,7 @@ export default function saveToJson(objectArray: ArticleModel[] | Referencer[], f
         if (err) {
             console.log(`Error occurred - could not save to file ${fileName}.`);
         } else {
-            console.log("Articles saved.");
+            console.log(`${fileName}.json successfully written.`);
         }
     })
 }
