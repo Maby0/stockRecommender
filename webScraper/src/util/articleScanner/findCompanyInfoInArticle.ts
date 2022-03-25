@@ -2,7 +2,6 @@ import ArticleModel from '../../model/articleModel';
 import CompanyDataObj from '../../model/CompanyDataModel';
 import Referencer from '../../model/ReferencerModel';
 import loadArticles from '../articles/articleLoad/loadArticlesToMemory';
-import saveToJson from '../saveToJSON';
 import loadSNPData from '../SNP500/SNP500DataLoad/loadSNPDataToMemory';
 
 export default function scanArticlesForSNP500(): Referencer[] {
@@ -17,7 +16,6 @@ export default function scanArticlesForSNP500(): Referencer[] {
         })
         if (referencedArticles.length) referencerArray.push(_referencerGenerator(company, referencedArticles))
     })
-    // saveToJson(referencerArray, "referencers");
     return referencerArray;
 }
 

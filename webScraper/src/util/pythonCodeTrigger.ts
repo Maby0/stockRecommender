@@ -1,12 +1,18 @@
 import { spawn } from 'child_process'
 
-function pythonCodeTrigger() {
-    const process = spawn('python3', ["../sentiment_analyser/article_sentiment.py"]);
+function _sentimentAnalyserCodeTrigger(textBody: string) {
+    const process = spawn('python3', [`../sentiment_analyser/${textBody}_sentiment.py`]);
     process.stdout.on('data', function(data) {
         console.log(data.toString());
     })
 }
 
-export default function sentimentScoreGenerator() {
-    return pythonCodeTrigger();
+function scoreArticleSentiment() {
+    _sentimentAnalyserCodeTrigger('article');
 }
+
+function scoreSentenceSentiment() {
+    _sentimentAnalyserCodeTrigger('sentence');
+}
+
+export { scoreArticleSentiment, scoreSentenceSentiment }

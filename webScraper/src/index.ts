@@ -3,9 +3,9 @@ require('dotenv').config();
 import express from 'express';
 import { AxiosRequestConfig } from 'axios';
 import articleProcessTrigger from './util/articles/articleProcessTrigger';
-import sentimentScoreGenerator from './util/pythonCodeTrigger';
 import SNP500ProcessTrigger from './util/SNP500/SNP500ProcessTrigger';
 import articleScanTrigger from './util/articleScanner/articleScanTrigger';
+import { scoreArticleSentiment, scoreSentenceSentiment } from './util/pythonCodeTrigger'
 
 const config: AxiosRequestConfig = {
     method: 'GET',
@@ -23,15 +23,17 @@ const port = 3000
 async function setupProcess(config: AxiosRequestConfig): Promise<void> {
     await articleProcessTrigger(config);
     await SNP500ProcessTrigger();
+    scoreArticleSentiment();
 }
 
-function mainProcess() {
+async function mainProcess() {
+    console.log("this happens after article polarity");
     articleScanTrigger();
-    // sentimentScoreGenerator();
+    scoreSentenceSentiment();
 }
 
 app.listen(port, async () => {
     console.log(`Example app listening on port ${port}!`)
-    // await setupProcess(config);
+    await setupProcess(config);
     mainProcess();
 })
