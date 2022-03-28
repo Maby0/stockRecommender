@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@alpacahq/alpaca-trade-api": "^2.12.1",
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.7.0"
+  }
+}

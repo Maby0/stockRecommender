@@ -1,9 +1,9 @@
 import fs from 'fs';
 import CompanyDataObj from '../../../model/CompanyDataModel';
 
-export default function loadSNPData(): CompanyDataObj[] {
+export default function loadSP500Data(): CompanyDataObj[] {
     const companyData = fs
-        .readFileSync('../data/SNP500.csv')
+        .readFileSync('../data/S&P500.csv')
         .toString()
         .split('\n')
         .map(company => {
