@@ -34,5 +34,6 @@ async function mainProcess() {
 app.listen(port, async () => {
     console.log(`Example app listening on port ${port}!`)
     await setupProcess(config);
-    mainProcess();
+    console.log("YOO");
+    // mainProcess();
 })

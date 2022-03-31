@@ -3,6 +3,6 @@ export default interface ArticleModel {
     datePublished: string;
     url: string;
     articleText: string;
-    polarity?: number;
-    subjectivity?: number;
+    polarity: number;
+    subjectivity: number;
 }

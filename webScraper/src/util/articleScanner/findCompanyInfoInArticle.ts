@@ -2,14 +2,14 @@ import ArticleModel from '../../model/articleModel';
 import CompanyDataObj from '../../model/CompanyDataModel';
 import Referencer from '../../model/ReferencerModel';
 import loadArticles from '../articles/articleLoad/loadArticlesToMemory';
-import loadSNPData from '../SNP500/SNP500DataLoad/loadSNPDataToMemory';
+import loadSPData from '../S&P500/S&P500DataLoad/loadS&PDataToMemory';
 
-export default function scanArticlesForSNP500(): Referencer[] {
+export default function scanArticlesForSP500(): Referencer[] {
     const allStoredArticles = loadArticles();
-    const SNP500CompaniesArray = loadSNPData();
+    const SP500CompaniesArray = loadSPData();
     const referencerArray = [];
 
-    SNP500CompaniesArray.forEach(company => {
+    SP500CompaniesArray.forEach(company => {
         const referencedArticles = []
         allStoredArticles.forEach(article => {
             if (article.articleText.includes(company.name)) referencedArticles.push(article)
