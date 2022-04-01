@@ -1,9 +1,7 @@
+import CompanyDataObj from "./CompanyDataModel";
+
 export default interface CompanyScore {
-    company: {
-        symbol: string;
-        name: string;
-        sector: string;
-    },
+    company: CompanyDataObj;
     articles: {
         nArticlesReferencedIn: number;
         averagePolarityScore: number;
