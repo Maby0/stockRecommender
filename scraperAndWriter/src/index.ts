@@ -6,6 +6,7 @@ import articleProcessTrigger from './util/articles/articleProcessTrigger';
 import SP500ProcessTrigger from './util/S&P500/S&P500ProcessTrigger';
 import articleScanTrigger from './util/articleScanner/articleScanTrigger';
 import { scoreArticleSentiment, scoreSentenceSentiment } from './util/pythonCodeTrigger'
+import calculateCompanyScores from './util/scoreGenerator';
 
 const config: AxiosRequestConfig = {
     method: 'GET',
@@ -26,14 +27,19 @@ async function setupProcess(config: AxiosRequestConfig): Promise<void> {
     scoreArticleSentiment();
 }
 
-async function mainProcess() {
+async function midProcess() {
     articleScanTrigger();
     scoreSentenceSentiment();
 }
 
+async function finalProcess() {
+    calculateCompanyScores();
+}
+
 app.listen(port, async () => {
     console.log(`Example app listening on port ${port}!`)
-    await setupProcess(config);
-    console.log("YOO");
-    // mainProcess();
+    // await setupProcess(config);
+    // console.log("Setup process complete");
+    // midProcess();
+    finalProcess()
 })

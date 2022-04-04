@@ -1,7 +1,8 @@
 import fs from 'fs';
-import Referencer from './model/ReferencerModel';
-import SentenceModel from './model/SentenceModel';
-import CompanyScore from './model/CompanyScoreModel';
+import Referencer from '../model/ReferencerModel';
+import SentenceModel from '../model/SentenceModel';
+import CompanyScore from '../model/CompanyScoreModel';
+import saveToJson from './saveToJSON';
 
 export default function calculateCompanyScores() {
     const referencers: Referencer[] = _readJSON();
@@ -27,6 +28,7 @@ export default function calculateCompanyScores() {
             / companyScore.articles.length
         companyScores.push(companyScore)
     });
+    saveToJson(companyScores, "calculatedScores");
     return companyScores;
 }
 
@@ -48,5 +50,3 @@ function _readJSON() {
         console.log(error);
     }
 }
-
-calculateCompanyScores();
