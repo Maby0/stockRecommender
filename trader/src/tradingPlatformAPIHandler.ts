@@ -8,18 +8,17 @@ const alpaca = new Alpaca({
     paper: true
 })
 
-async function getAccount() {
-    alpaca.getAccount().then((account) => {
-        console.log('Current Account:', account);
-    })
-}
+// async function getAccount() {
+//     alpaca.getAccount().then((account) => {
+//         console.log('Current Account:', account);
+//     })
+// }
 
-async function createOrder() {
+async function createOrder(companySymbol: string, amount: number) {
     try {
         alpaca.createOrder({
-            symbol: "AMZN",
-            qty: 1,
-            notional: 1,
+            symbol: companySymbol,
+            notional: amount,
             side: 'buy',
             type: 'market',
             time_in_force: 'day'
@@ -28,3 +27,5 @@ async function createOrder() {
         console.log(error);
     }
 }
+
+export { createOrder }
