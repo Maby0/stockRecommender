@@ -1,8 +1,8 @@
 import extractArticleSentences from "./extractArticleSentences";
-import scanArticlesForSNP500 from "./findCompanyInfoInArticle";
+import scanArticlesForSP500 from "./findCompanyInfoInArticle";
 
 export default function articleScanTrigger() {
-    const referencerArray = scanArticlesForSNP500();
+    const referencerArray = scanArticlesForSP500();
     extractArticleSentences(referencerArray)
     console.log("Article scanning complete.");
 }

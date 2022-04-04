@@ -21,25 +21,34 @@ const config: AxiosRequestConfig = {
 const app = express()
 const port = 3000
 
-async function setupProcess(config: AxiosRequestConfig): Promise<void> {
-    await articleProcessTrigger(config);
+async function SP500Update() {
     await SP500ProcessTrigger();
-    scoreArticleSentiment();
+}
+
+async function setupProcess(config: AxiosRequestConfig) {
+    console.log("Beginning setup Process");
+    await articleProcessTrigger(config);
+    await scoreArticleSentiment();
+    console.log("Setup process complete\n");
 }
 
 async function midProcess() {
+    console.log("Beginning mid process");
     articleScanTrigger();
     scoreSentenceSentiment();
+    console.log("Mid process complete\n");
 }
 
 async function finalProcess() {
+    console.log("Beginning final process");
     calculateCompanyScores();
+    console.log("Final process complete\n");
 }
 
 app.listen(port, async () => {
-    console.log(`Example app listening on port ${port}!`)
-    // await setupProcess(config);
-    // console.log("Setup process complete");
+    console.log(`Example app listening on port ${port}!\n`)
+    // await SP500Update();
+    await setupProcess(config);
     // midProcess();
-    finalProcess()
+    // finalProcess()
 })

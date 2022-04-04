@@ -12,7 +12,7 @@ export default async function fetchSP500(): Promise<void> {
             const writeStream = fs.createWriteStream('../data/S&P500.csv');
             stream.pipe(writeStream);
             writeStream.on('finish', () => {
-                console.log('wrote all data to file');
+                console.log('wrote all SP500 data to file');
                 stream.end();
             })
         }

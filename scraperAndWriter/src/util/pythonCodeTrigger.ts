@@ -1,18 +1,19 @@
-import { spawn } from 'child_process'
+import { execFile } from 'child_process'
+import util from 'util';
 
-function _sentimentAnalyserCodeTrigger(textBody: string) {
-    const process = spawn('python3', [`../sentiment_analyser/${textBody}_sentiment.py`]);
-    process.stdout.on('data', function(data) {
-        console.log(data.toString());
-    })
+const execF = util.promisify(execFile);
+
+async function _sentimentAnalyserCodeTrigger(textBody: string) {
+    const { stdout } = await execF('python3', [`../sentiment_analyser/${textBody}_sentiment.py`])
+    console.log(stdout);
 }
 
-function scoreArticleSentiment() {
-    _sentimentAnalyserCodeTrigger('article');
+async function scoreArticleSentiment() {
+    await _sentimentAnalyserCodeTrigger('article');
 }
 
-function scoreSentenceSentiment() {
-    _sentimentAnalyserCodeTrigger('sentence');
+async function scoreSentenceSentiment() {
+    await _sentimentAnalyserCodeTrigger('sentence');
 }
 
 export { scoreArticleSentiment, scoreSentenceSentiment }
