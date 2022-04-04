@@ -1,5 +1,9 @@
-import calculateCompanyScores from "./scoreGenerator";
+import readJson from "./readJson";
 
-const arr = calculateCompanyScores();
+const companyScores = readJson();
+const base = 100;
 
-console.log(arr);
+function placeBuyOrders() {
+    
+}
+console.log(companyScores);
