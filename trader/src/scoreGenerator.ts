@@ -1,32 +1,43 @@
 import fs from 'fs';
-import ArticleModel from './model/articleModel';
-import CompanyScore from './model/CompanyScoreModel';
 import Referencer from './model/ReferencerModel';
 import SentenceModel from './model/SentenceModel';
-
+import CompanyScore from './model/CompanyScoreModel';
 
 export default function calculateCompanyScores() {
     const referencers: Referencer[] = _readJSON();
-    const companyScores: CompanyScore[] = []
-    
+    const companyScores: CompanyScore[] = [];
     referencers.forEach(referencer => {
-        const articlesAvgPolarity = _calculateAverage(referencer.articlesCompanyReferencedIn)
-        const sentenceAvgPolarity = _calculateAverage(referencer.extractedSentences)
-
-        companyScores.push({
+        const companyScore: CompanyScore = {
             company: referencer.company,
-            articles: {
-                nArticlesReferencedIn: referencer.articlesCompanyReferencedIn.length,
-                averagePolarityScore: articlesAvgPolarity
-            },
-            sentences: {
-                nSentencesReferencedIn: referencer.extractedSentences.length,
-                averagePolarityScore: sentenceAvgPolarity
-            },
-            overallPolarityScore: (articlesAvgPolarity + sentenceAvgPolarity) / 2
-        })
+            articles: [],
+            overallPolarityScore: 0
+        }
+        referencer.articlesCompanyReferencedIn.forEach(articleObj => {
+            let sentencePolarity: number[] | number = _extractPolarityOfMatchingIds(referencer.extractedSentences, articleObj.id)
+            sentencePolarity = _calculateAverage(sentencePolarity)
+            companyScore.articles.push({
+                id: articleObj.id,
+                articlePolarity: articleObj.polarity,
+                sentencePolarity: sentencePolarity,
+                articleAndSentencePolarity: (articleObj.polarity + sentencePolarity) / 2
+            });
+        });
+        companyScore.overallPolarityScore = companyScore.articles
+            .reduce((n, article) => n + article.articleAndSentencePolarity, 0) 
+            / companyScore.articles.length
+        companyScores.push(companyScore)
     });
     return companyScores;
+}
+
+function _calculateAverage(numArray: number[]) {
+    return numArray.reduce((a, b) => a + b) / numArray.length
+}
+
+function _extractPolarityOfMatchingIds(sentenceArray: SentenceModel[], id: number) {
+    return sentenceArray
+        .filter(sentence => sentence.articlIdOfReferencedSentence === id)
+        .map(sentence => sentence.polarity)
 }
 
 function _readJSON() {
@@ -38,10 +49,4 @@ function _readJSON() {
     }
 }
 
-function _calculateAverage(modelArray: ArticleModel[] | SentenceModel[]) {
-    let sum = 0;
-    for (let i = 0; i < modelArray.length; i++) {
-        sum += modelArray[i].polarity;
-    }
-    return sum / modelArray.length;
-}
+calculateCompanyScores();

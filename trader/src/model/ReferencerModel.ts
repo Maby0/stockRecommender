@@ -1,4 +1,4 @@
-import ArticleModel from "./articleModel";
+import ArticleModel from "./ArticleModel";
 import CompanyDataObj from "./CompanyDataModel";
 import SentenceModel from "./SentenceModel";
 

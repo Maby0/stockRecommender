@@ -1,14 +1,8 @@
 import CompanyDataObj from "./CompanyDataModel";
+import PostAnalysisArticleModel from "./PostAnalysisArticleModel";
 
 export default interface CompanyScore {
     company: CompanyDataObj;
-    articles: {
-        nArticlesReferencedIn: number;
-        averagePolarityScore: number;
-    }
-    sentences: { 
-        nSentencesReferencedIn: number;
-        averagePolarityScore: number;
-    }
+    articles: PostAnalysisArticleModel[]
     overallPolarityScore: number;
 }
