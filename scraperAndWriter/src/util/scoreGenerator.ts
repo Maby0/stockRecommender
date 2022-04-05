@@ -29,7 +29,6 @@ export default function calculateCompanyScores() {
         companyScores.push(companyScore)
     });
     saveToJson(companyScores, "calculatedScores");
-    return companyScores;
 }
 
 function _calculateAverage(numArray: number[]) {

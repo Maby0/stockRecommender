@@ -7,6 +7,7 @@ import SP500ProcessTrigger from './util/S&P500/S&P500ProcessTrigger';
 import articleScanTrigger from './util/articleScanner/articleScanTrigger';
 import { scoreArticleSentiment, scoreSentenceSentiment } from './util/pythonCodeTrigger'
 import calculateCompanyScores from './util/scoreGenerator';
+import placeOrders from './util/traderTrigger';
 
 const config: AxiosRequestConfig = {
     method: 'GET',
@@ -26,29 +27,30 @@ async function SP500Update() {
 }
 
 async function setupProcess(config: AxiosRequestConfig) {
-    console.log("Beginning setup Process");
+    console.log("--------------------------\nBeginning setup process\n--------------------------");
     await articleProcessTrigger(config);
     await scoreArticleSentiment();
-    console.log("Setup process complete\n");
+    console.log("Setup process complete.\n\n");
 }
 
 async function midProcess() {
-    console.log("Beginning mid process");
+    console.log("--------------------------\nBeginning mid process\n--------------------------");
     articleScanTrigger();
-    scoreSentenceSentiment();
-    console.log("Mid process complete\n");
+    await scoreSentenceSentiment();
+    console.log("Mid process complete.\n\n");
 }
 
 async function finalProcess() {
-    console.log("Beginning final process");
+    console.log("--------------------------\nBeginning final process\n--------------------------");
     calculateCompanyScores();
-    console.log("Final process complete\n");
+    await placeOrders();
+    console.log("\nFinal process complete.\n\n");
 }
 
 app.listen(port, async () => {
-    console.log(`Example app listening on port ${port}!\n`)
+    console.log(`App listening on port ${port}!\n`)
     // await SP500Update();
     await setupProcess(config);
-    // midProcess();
-    // finalProcess()
+    await midProcess();
+    await finalProcess()
 })

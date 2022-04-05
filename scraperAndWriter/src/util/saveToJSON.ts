@@ -4,11 +4,10 @@ import CompanyScore from '../model/CompanyScoreModel';
 import Referencer from '../model/ReferencerModel';
 
 export default function saveToJson(objectArray: ArticleModel[] | Referencer[] | CompanyScore[], fileName: string) {
-    fs.writeFile(`../data/${fileName}.json`, JSON.stringify(objectArray), function (err) {
-        if (err) {
-            console.log(`Error occurred - could not save to file ${fileName}.`);
-        } else {
-            console.log(`${fileName}.json successfully written.`);
-        }
-    })
+    try {
+        fs.writeFileSync(`../data/${fileName}.json`, JSON.stringify(objectArray))
+        console.log(`${fileName}.json successfully written.`);
+    } catch (error) {
+        console.error(error)
+    }
 }

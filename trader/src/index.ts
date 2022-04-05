@@ -6,13 +6,13 @@ const companyScores: CompanyScore[] = readJson();
 const base = 100;
 const minimumPolarity = 0.1;
 
-function placeBuyOrders() {
-    companyScores.forEach(companyScoreObj => {
+async function placeBuyOrders() {
+    companyScores.forEach(async companyScoreObj => {
         if (companyScoreObj.overallPolarityScore > minimumPolarity) {
             const value = companyScoreObj.overallPolarityScore * base;
-            createOrder(companyScoreObj.company.symbol, value)
+            await createOrder(companyScoreObj.company.symbol, value)
         }
     });
 }
 
-// placeBuyOrders()
+placeBuyOrders()

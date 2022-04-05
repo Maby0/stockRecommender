@@ -9,6 +9,7 @@ const alpaca = new Alpaca({
 })
 
 // async function getAccount() {
+    
 //     alpaca.getAccount().then((account) => {
 //         console.log('Current Account:', account);
 //     })
