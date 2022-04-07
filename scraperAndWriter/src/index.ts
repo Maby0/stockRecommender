@@ -44,6 +44,7 @@ async function finalProcess() {
     console.log("--------------------------\nBeginning final process\n--------------------------");
     calculateCompanyScores();
     await placeOrders();
+    console.log("\nAll necessary orders placed.");
     console.log("\nFinal process complete.\n\n");
 }
 

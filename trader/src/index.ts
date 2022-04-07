@@ -11,10 +11,9 @@ async function placeBuyOrders() {
         if (companyScoreObj.overallPolarityScore > minimumPolarity) {
             const value = companyScoreObj.overallPolarityScore * base;
             await createOrder(companyScoreObj.company.symbol, value)
-            console.log(`Buy order placed for ${companyScoreObj.company.name} valued at ${value}.`);
+            console.log(`Buy order placed for ${companyScoreObj.company.name} valued at $${value.toFixed(2)}.`);
         }
     });
-    console.log("\nAll necessary orders placed.");
 }
 
 placeBuyOrders()
